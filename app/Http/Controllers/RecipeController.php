@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recipe;
+use Validator;
 
 class RecipeController extends Controller
 {
@@ -23,9 +24,32 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createRecipe(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'wheat_allergy' => 'required',
+            'milk_allergy' => 'required',
+            'allergies_list' => 'required',
+            'owner_id' => 'required',
+            'votes_id' => 'required',
+            'comments_id' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        return Recipe::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'photo_path' => 'testPath',
+            'wheat_allergy' => $request['wheat_allergy'],
+            'milk_allergy' => $request['milk_allergy'],
+            'allergies_list' => $request['allergies_list'],
+            'owner_id' => $request['owner_id'],
+            'votes_id' => $request['votes_id'],
+            'comments_id' => $request['comments_id'],
+        ]);
     }
 
     /**
