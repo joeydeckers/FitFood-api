@@ -19,6 +19,12 @@ class RecipeController extends Controller
         return $recipes;
     }
 
+
+    public function getRecipeByWheatAllergy(){
+        $recipe = Recipe::all()->where('wheat-allergy', '1')->get();
+        return $recipe;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

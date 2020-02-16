@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/recipes', 'RecipeController@index');
 Route::get('/recipe/{id}', 'RecipeController@showRecipe');
 Route::post('/recipe/create', 'RecipeController@createRecipe');
+Route::get('/recipe/wheat-allergy', 'RecipeController@getRecipeByWheatAllergy');
