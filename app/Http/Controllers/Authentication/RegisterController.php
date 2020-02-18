@@ -16,7 +16,17 @@ class RegisterController extends Controller
             'name'=> 'required',
         ]);
 
+
+        if($validatedData->fails()){
+            return $validatedData->errors();
+        }
+
         $validatedData['password'] = bcrypt($request->password);
+
+
+
+ 
+        
 
         $user = User::create($validatedData);
 
