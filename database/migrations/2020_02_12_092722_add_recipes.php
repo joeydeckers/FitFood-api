@@ -17,6 +17,7 @@ class AddRecipes extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('photo_path');
+            $table->string('category_time');
             $table->longText('description');
             $table->boolean('wheat_allergy');
             $table->boolean('milk_allergy');

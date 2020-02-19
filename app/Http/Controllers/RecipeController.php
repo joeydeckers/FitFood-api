@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recipe;
+use App\User;
 use Validator;
 
 class RecipeController extends Controller
@@ -59,17 +60,6 @@ class RecipeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -78,7 +68,8 @@ class RecipeController extends Controller
     public function showRecipe($id)
     {
         $recipe = Recipe::findOrFail($id);
-        return $recipe;
+        $user = User::find($recipe->owner_id);
+        return response(['recipe' => $recipe, 'user' => $user], 200);
     }
 
     /**
