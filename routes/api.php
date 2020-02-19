@@ -27,4 +27,5 @@ Route::get('/recipe/wheat-allergy', 'RecipeController@getRecipeByWheatAllergy');
 Route::prefix('/user')->group(function(){
     Route::post('/login', 'UserController@login');
     Route::post('/register', 'UserController@register');
+    Route::get('/recipes/{id}', 'UserController@getallrecipes');
 });

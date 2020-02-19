@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Recipe;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -43,5 +44,10 @@ class UserController extends Controller
         $accessToken = $user->createToken('authToken')->accessToken;
 
         return response(['user'=> $user, 'access_token'=> $accessToken]);
+    }
+
+    public function getAllRecipes($owner_id){
+        $recipes = Recipe::where('owner_id', $owner_id)->get();
+        return $recipes;
     }
 }
