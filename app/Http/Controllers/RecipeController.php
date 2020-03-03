@@ -42,6 +42,7 @@ class RecipeController extends Controller
             'owner_id' => 'required',
             'votes_id' => 'required',
             'comments_id' => 'required',
+            'category_time' => 'required'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -56,6 +57,7 @@ class RecipeController extends Controller
             'owner_id' => $request['owner_id'],
             'votes_id' => $request['votes_id'],
             'comments_id' => $request['comments_id'],
+            'category_time' => $request['category_time'],
         ]);
     }
 
@@ -78,21 +80,9 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editRecipe($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $user = auth()->guard('api')->user();
     }
 
     /**
@@ -101,8 +91,12 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteRecipe($id)
     {
-        //
+        $user = auth()->guard('api')->user();
+
+        $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->get();
+        $recipe->delete();
+        return response(['Message' => "Recipe deleted!"], 200);
     }
 }
