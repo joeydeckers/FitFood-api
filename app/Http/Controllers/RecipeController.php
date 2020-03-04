@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Recipe;
 use App\User;
 use Validator;
+use File;
 
 class RecipeController extends Controller
 {
@@ -42,15 +43,24 @@ class RecipeController extends Controller
             'owner_id' => 'required',
             'votes_id' => 'required',
             'comments_id' => 'required',
-            'category_time' => 'required'
+            'category_time' => 'required',
+            'recipe_photo' => 'required'
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
+        if($request->file('recipe_photo')){
+            $filename = $request->file('recipe_photo')->getClientOriginalName();
+            $extension = File::extension($filename);
+            $newName = md5($filename.time());
+            $path = $request->file('recipe_photo')->move(public_path("/upload"), $newName.".".$extension);
+            $photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
+        }
+
         return Recipe::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'photo_path' => 'testPath',
+            'photo_path' => $photo_path,
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
             'allergies_list' => $request['allergies_list'],

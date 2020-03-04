@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     protected $fillable = [
-        'name', 'description', 'wheat_allergy', 'milk_allergy', 'allergies_list', 'owner_id', 'votes_id', 'comments_id', 'photo_path', 'category_time'
+        'name', 'description', 'wheat_allergy', 'milk_allergy', 'allergies_list', 'owner_id', 'votes_id', 'comments_id', 'category_time', 'recipe_photo', 'photo_path'
     ];
 
     public function user(){
