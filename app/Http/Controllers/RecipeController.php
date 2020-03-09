@@ -90,9 +90,12 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editRecipe($id)
+    public function editRecipe(Request $request, $id)
     {
         $user = auth()->guard('api')->user();
+        $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
+        $recipe->update($request->all());
+        return $recipe;
     }
 
     /**
@@ -106,6 +109,7 @@ class RecipeController extends Controller
         $user = auth()->guard('api')->user();
 
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->get();
+        return $recipe;
         $recipe->delete();
         return response(['Message' => "Recipe deleted!"], 200);
     }
