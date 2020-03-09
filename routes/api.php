@@ -23,6 +23,7 @@ Route::post('/recipe/create', 'RecipeController@createRecipe');
 Route::get('/recipe/wheat-allergy', 'RecipeController@getRecipeByWheatAllergy');
 Route::delete('/recipe/{id}', 'RecipeController@deleteRecipe');
 Route::put('/recipe/{id}', 'RecipeController@editRecipe');
+Route::get('/recipe/daytime/{daytime}', 'RecipeController@getRecipeByDayTime');
 
 
 

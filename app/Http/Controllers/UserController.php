@@ -50,4 +50,9 @@ class UserController extends Controller
         $recipes = Recipe::where('owner_id', $owner_id)->get();
         return $recipes;
     }
+
+    public function getUserInfo($id){
+        $user = User::find($id);
+        return $user;
+    }
 }

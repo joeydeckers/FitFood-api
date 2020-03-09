@@ -43,6 +43,9 @@ class RecipeController extends Controller
             'owner_id' => 'required',
             'votes_id' => 'required',
             'comments_id' => 'required',
+            'protein'=> 'required',
+            'carbs'=> 'required',
+            'fats'=> 'required',
             'category_time' => 'required',
             'recipe_photo' => 'required'
         ];
@@ -64,6 +67,9 @@ class RecipeController extends Controller
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
             'allergies_list' => $request['allergies_list'],
+            'protein' => $request['protein'],
+            'carbs' => $request['carbs'],
+            'fats' => $request['fats'],
             'owner_id' => $request['owner_id'],
             'votes_id' => $request['votes_id'],
             'comments_id' => $request['comments_id'],
@@ -94,6 +100,11 @@ class RecipeController extends Controller
     {
         $user = auth()->guard('api')->user();
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
+
+        if(is_null($recipe)){
+            return response(['message' => "Not found"], 404);
+        }
+
         $recipe->update($request->all());
         return $recipe;
     }
@@ -107,10 +118,23 @@ class RecipeController extends Controller
     public function deleteRecipe($id)
     {
         $user = auth()->guard('api')->user();
-
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->get();
         return $recipe;
         $recipe->delete();
         return response(['Message' => "Recipe deleted!"], 200);
+    }
+
+    public function getRecipeByDayTime($daytime){
+        $recipe = Recipe::where('category_time', $daytime)->get();
+
+        if(is_null($recipe)){
+            return response(['message' => "Not found"], 404);
+        }
+
+        return response($recipe, 200);
+    }
+
+    public function getProteinFilter($proteinCount){
+        
     }
 }
