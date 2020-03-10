@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recipe;
 use App\User;
+use App\Comment;
 use Validator;
 use File;
 
@@ -89,7 +90,8 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::findOrFail($id);
         $user = User::find($recipe->owner_id);
-        return response(['recipe' => $recipe, 'user' => $user], 200);
+        $comments = Comment::where('recipe_id', $recipe->id)->get();
+        return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments], 200);
     }
 
     /**

@@ -26,6 +26,8 @@ Route::put('/recipe/{id}', 'RecipeController@editRecipe');
 Route::get('/recipe/daytime/{daytime}', 'RecipeController@getRecipeByDayTime');
 
 
+route::post('/recipe/addcomment/{id}', 'CommentController@addComment');
+
 
 // user routes
 

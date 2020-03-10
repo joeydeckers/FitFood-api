@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserHasRecipes extends Migration
+class CreateComments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateUserHasRecipes extends Migration
      */
     public function up()
     {
-        Schema::create('userHasRecipes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('comment_text');
             $table->integer('owner_id');
             $table->integer('recipe_id');
             $table->timestamps();
@@ -28,6 +29,6 @@ class CreateUserHasRecipes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userHasRecipes');
+        Schema::dropIfExists('comments');
     }
 }

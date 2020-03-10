@@ -14,4 +14,8 @@ class Recipe extends Model
     public function user(){
         return $this->hasOne('App\User');
     }
+
+    public function comment(){
+        return $this->hasMany('App\Comment');
+    }
 }
