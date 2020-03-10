@@ -8,7 +8,7 @@ class Recipe extends Model
 {
     protected $fillable = [
         'name', 'description', 'wheat_allergy', 'milk_allergy', 'allergies_list', 'owner_id', 'votes_id', 'comments_id', 'category_time', 'recipe_photo', 'photo_path',
-        'protein', 'carbs', 'fats'
+        'protein', 'carbs', 'fats', 'calories'
     ];
 
     public function user(){

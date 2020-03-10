@@ -22,6 +22,7 @@ class AddRecipes extends Migration
             $table->boolean('wheat_allergy');
             $table->boolean('milk_allergy');
             $table->text('allergies_list');
+            $table->integer('calories');
             $table->integer('protein');
             $table->integer('carbs');
             $table->integer('fats');
