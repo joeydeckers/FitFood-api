@@ -18,4 +18,8 @@ class Recipe extends Model
     public function comment(){
         return $this->hasMany('App\Comment');
     }
+
+    public function rating(){
+        return $this->hasMany('App\Rating');
+    }
 }

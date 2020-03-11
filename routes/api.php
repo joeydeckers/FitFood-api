@@ -28,6 +28,7 @@ Route::get('/recipe/daytime/{daytime}', 'RecipeController@getRecipeByDayTime');
 
 route::post('/recipe/addcomment/{id}', 'CommentController@addComment');
 
+route::post('/recipe/addrating/{id}', 'RatingController@createRating');
 
 // user routes
 

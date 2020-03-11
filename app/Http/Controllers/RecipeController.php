@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recipe;
 use App\User;
+use App\Rating;
 use App\Comment;
 use Validator;
 use File;
@@ -91,6 +92,16 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $user = User::find($recipe->owner_id);
         $comments = Comment::where('recipe_id', $recipe->id)->get();
+        $rating = Rating::where('recipe_id', $recipe->id)->get();
+        $numberOfRatings = count($rating);
+        
+        $allRatingCount = 0;
+        foreach($rating as $ratingCount){
+            $allRatingCount += $ratingCount->rating;
+        }
+
+        return $allRatingCount;
+
         return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments], 200);
     }
 
