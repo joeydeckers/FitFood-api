@@ -100,9 +100,9 @@ class RecipeController extends Controller
             $allRatingCount += $ratingCount->rating;
         }
 
-        return $allRatingCount;
+        $definiteRating =  $allRatingCount / $numberOfRatings;
 
-        return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments], 200);
+        return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments, 'rating' => $definiteRating], 200);
     }
 
     /**
@@ -149,7 +149,27 @@ class RecipeController extends Controller
         return response($recipe, 200);
     }
 
-    public function getProteinFilter($proteinCount){
+
+    // hier moet goed naar gekeken worden
+    public function recipeFilter(Request $request){
+
+        if(is_null($request['category_time'])){
+            $recipe = Recipe::where('protein', '>=', $request['protein'])
+            ->where('carbs', '<=', $request['carbs'])
+            ->where('fats', '<=', $request['fats'])
+            ->where('calories', '<=', $request['calories'])
+            ->get();
+            return $recipe;
+        }
         
+
+        $recipe = Recipe::where('protein', '>=', $request['protein'])
+            ->where('carbs', '>=', $request['carbs'])
+            ->where('fats', '>=', $request['fats'])
+            ->where('category_time', $request['category_time'])
+            ->where('calories', '>=', $request['calories'])
+            ->get();
+
+        return $recipe;
     }
 }
