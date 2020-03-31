@@ -37,3 +37,9 @@ Route::prefix('/user')->group(function(){
     Route::post('/register', 'UserController@register');
     Route::get('/recipes/{id}', 'UserController@getallrecipes');
 });
+
+Route::prefix('/mealprep')->group(function(){
+    Route::post('/create', 'MealprepController@createMealprep');
+    Route::get('/{id}', 'MealprepController@getMealprep');
+});
+
