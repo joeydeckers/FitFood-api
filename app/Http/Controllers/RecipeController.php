@@ -68,7 +68,7 @@ class RecipeController extends Controller
             'name' => $request['name'],
             'description' => $request['description'],
             //'photo_path' => $photo_path,
-            'photo_path' => "temp",
+            'photo_path' => "http://via.placeholder.com/1920",
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
             'allergies_list' => $request['allergies_list'],
