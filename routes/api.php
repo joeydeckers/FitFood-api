@@ -41,5 +41,6 @@ Route::prefix('/user')->group(function(){
 Route::prefix('/mealprep')->group(function(){
     Route::post('/create', 'MealprepController@createMealprep');
     Route::get('/{id}', 'MealprepController@getMealprep');
+    Route::get('/getmealpreps/{id}', 'MealprepController@getMealprepsByUser');
 });
 

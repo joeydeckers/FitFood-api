@@ -9,6 +9,8 @@ use App\Recipe;
 
 class MealprepController extends Controller
 {
+
+    // hier gaat naar kijken
     public function createMealprep(Request $request){
         $rules = [
             'day' => 'required',
@@ -48,7 +50,11 @@ class MealprepController extends Controller
             array_push($recipes, $recipe);
         }
 
-        return response(['mealprep'=> $mealprep, 'recipes' => $recipes],200);
-        
+        return response(['mealprep'=> $mealprep, 'recipes' => $recipes],200);       
+    }
+
+    public function getMealprepsByUser($id){
+        $mealprep = Mealprep::where('owner_id', $id)->get();
+        return $mealprep;
     }
 }
