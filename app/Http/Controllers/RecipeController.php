@@ -67,7 +67,8 @@ class RecipeController extends Controller
         return Recipe::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'photo_path' => $photo_path,
+            //'photo_path' => $photo_path,
+            'photo_path' => "temp",
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
             'allergies_list' => $request['allergies_list'],
