@@ -60,7 +60,7 @@ class RecipeController extends Controller
             $extension = File::extension($filename);
             $newName = md5($filename.time());
             $path = $request->file('recipe_photo')->move(public_path("/upload"), $newName.".".$extension);
-            $photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
+            //$photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
             $photo_path = "temp";
         }
 
