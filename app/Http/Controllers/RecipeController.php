@@ -102,6 +102,9 @@ class RecipeController extends Controller
             $allRatingCount += $ratingCount->rating;
         }
 
+        if($allRatingCount == 0){
+            return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments, 'rating' => 0], 200);
+        }
         $definiteRating =  $allRatingCount / $numberOfRatings;
 
         return response(['recipe' => $recipe, 'user' => $user, 'comments' => $comments, 'rating' => $definiteRating], 200);
