@@ -55,4 +55,8 @@ class UserController extends Controller
         $user = User::find($id);
         return $user;
     }
+
+    public function getCurrentUser(){
+        return auth()->guard('api')->user();
+    }
 }
