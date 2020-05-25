@@ -158,22 +158,23 @@ class RecipeController extends Controller
     // hier moet goed naar gekeken worden
     public function recipeFilter(Request $request){
 
-        if(is_null($request['category_time'])){
-            $recipe = Recipe::where('protein', '>=', $request['protein'])
-            ->where('carbs', '<=', $request['carbs'])
-            ->where('fats', '<=', $request['fats'])
-            ->where('calories', '<=', $request['calories'])
-            ->get();
-            return $recipe;
-        }
+        // if(is_null($request['category_time'])){
+        //     $recipe = Recipe::where('protein', '>=', $request['protein'])
+        //     ->where('carbs', '<=', $request['carbs'])
+        //     ->where('fats', '<=', $request['fats'])
+        //     ->where('calories', '<=', $request['calories'])
+        //     ->get();
+        //     return $recipe;
+        // }
         
 
-        $recipe = Recipe::where('protein', '>=', $request['protein'])
+        $recipe = Recipe::where('protein', '<=', $request['protein'])
             ->where('carbs', '>=', $request['carbs'])
             ->where('fats', '>=', $request['fats'])
-            ->where('category_time', $request['category_time'])
             ->where('calories', '>=', $request['calories'])
             ->get();
+
+
 
         return $recipe;
     }
