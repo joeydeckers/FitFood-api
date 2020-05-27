@@ -72,7 +72,6 @@ class RecipeController extends Controller
         $imageName = Str::random(10).'.'.$extension;
         Storage::disk('recipe_img')->put($imageName, base64_decode($image));
         $path = public_path("/uploads/").$imageName;
-        return $path;
 
         return Recipe::create([
             'name' => $request['name'],
