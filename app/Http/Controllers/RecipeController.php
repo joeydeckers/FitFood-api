@@ -60,15 +60,15 @@ class RecipeController extends Controller
             $extension = File::extension($filename);
             $newName = md5($filename.time());
             $path = $request->file('recipe_photo')->move(public_path("/upload"), $newName.".".$extension);
-            //$photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
-            $photo_path = "temp";
+            $photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
+            //$photo_path = "temp";
         }
 
         return Recipe::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            //'photo_path' => $photo_path,
-            'photo_path' => "http://via.placeholder.com/1920",
+            'photo_path' => $photo_path,
+            //'photo_path' => "http://via.placeholder.com/1920",
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
             'allergies_list' => $request['allergies_list'],
