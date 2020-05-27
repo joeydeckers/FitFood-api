@@ -167,15 +167,18 @@ class RecipeController extends Controller
         //     return $recipe;
         // }
         
+        if($request['protein']){
+            $recipe = Recipe::where('protein', '<=', $request['protein'])
+                // ->where('carbs', '<=', $request['carbs'])
+                // ->where('fats', '<=', $request['fats'])
+                // ->where('calories', '<=', $request['calories'])
+                ->get();
 
-        $recipe = Recipe::where('protein', '>=', $request['protein'])
-            ->where('carbs', '>=', $request['carbs'])
-            ->where('fats', '>=', $request['fats'])
-            ->where('calories', '>=', $request['calories'])
-            ->get();
 
 
+            return $recipe;
+        }
 
-        return $recipe;
+
     }
 }
