@@ -9,6 +9,8 @@ use App\Rating;
 use App\Comment;
 use Validator;
 use File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RecipeController extends Controller
 {
@@ -55,19 +57,27 @@ class RecipeController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
-        if($request->file('recipe_photo')){
-            $filename = $request->file('recipe_photo')->getClientOriginalName();
-            $extension = File::extension($filename);
-            $newName = md5($filename.time());
-            $path = $request->file('recipe_photo')->move(public_path("/upload"), $newName.".".$extension);
-            $photo_path = "http://127.0.0.1:8000/upload/".$newName.".".$extension;
-            //$photo_path = "temp";
-        }
+
+        $image = $request->recipe_photo;  // your base64 encoded
+        $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+
+        $replace = substr($image, 0, strpos($image, ',')+1); 
+        
+        // find substring fro replace here eg: data:image/png;base64,
+        
+        $image = str_replace($replace, '', $image); 
+        
+        $image = str_replace(' ', '+', $image); 
+        
+        $imageName = Str::random(10).'.'.$extension;
+        Storage::disk('recipe_img')->put($imageName, base64_decode($image));
+        $path = public_path("/uploads/").$imageName;
+        return $path;
 
         return Recipe::create([
             'name' => $request['name'],
             'description' => $request['description'],
-            'photo_path' => $photo_path,
+            'photo_path' => $path,
             //'photo_path' => "http://via.placeholder.com/1920",
             'wheat_allergy' => $request['wheat_allergy'],
             'milk_allergy' => $request['milk_allergy'],
