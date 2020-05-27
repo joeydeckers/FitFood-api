@@ -72,7 +72,7 @@ class RecipeController extends Controller
         $imageName = Str::random(10).'.'.$extension;
         Storage::disk('recipe_img')->put($imageName, base64_decode($image));
         // voor heroku
-        $path = "/uploads/".$imageName;
+        $path = "https://fitfood-api.herokuapp.com/uploads/".$imageName;
         // voor lokaal
         //$path = public_path("/uploads/").$imageName;	
         return Recipe::create([
