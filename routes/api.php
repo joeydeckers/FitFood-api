@@ -35,7 +35,7 @@ route::post('/recipe/addrating/{id}', 'RatingController@createRating');
 Route::prefix('/user')->group(function(){
     Route::post('/login', 'UserController@login');
     Route::post('/register', 'UserController@register');
-    Route::get('/recipes/{id}', 'UserController@getallrecipes');
+    Route::get('/recipes/{id}', 'UserController@getAllRecipes');
     Route::get('currentuser', 'UserController@getCurrentUser');
 });
 
