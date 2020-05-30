@@ -150,7 +150,7 @@ class RecipeController extends Controller
     {
         $user = auth()->guard('api')->user();
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->get();
-        if($recipe->onwner_id == $user->id){
+        if($recipe->owner_id == $user->id){
             Recipe::destroy($id);
         }
         
