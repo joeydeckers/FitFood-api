@@ -150,7 +150,7 @@ class RecipeController extends Controller
     {
         $user = auth()->guard('api')->user();
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->get();
-        $recipe->delete();
+        $recipe::destroy();
         return response(['Message' => "Recipe deleted!"], 200);
     }
 
