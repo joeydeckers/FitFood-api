@@ -154,6 +154,7 @@ class RecipeController extends Controller
             return response(['message' => "Not found"], 404);
         }
         if(!$request['recipe_photo']){
+            return 'not found';
             $recipe->update($request->all());
         }else{
             Recipe::create([
