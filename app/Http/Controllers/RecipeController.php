@@ -129,9 +129,7 @@ class RecipeController extends Controller
      */
     public function editRecipe(Request $request, $id)
     {
-        if($request['recipe_photo']){
-            return 'found';
-        }
+
         
         $user = auth()->guard('api')->user();
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
@@ -141,6 +139,25 @@ class RecipeController extends Controller
         }
 
         $recipe->update($request->all());
+
+        if($request['recipe_photo']){
+            $image = $request->recipe_photo;  // your base64 encoded
+            $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+    
+            $replace = substr($image, 0, strpos($image, ',')+1); 
+            
+            // find substring fro replace here eg: data:image/png;base64,
+            
+            $image = str_replace($replace, '', $image); 
+            
+            $image = str_replace(' ', '+', $image); 
+            
+            $imageName = Str::random(10).'.'.$extension;
+            Storage::disk('recipe_img')->put($imageName, base64_decode($image));
+            // voor heroku
+            $path = "https://fitfood-api.herokuapp.com/uploads/".$imageName;
+            $recipe->photo_path = $path;
+        }
         return $recipe;
     }
 
