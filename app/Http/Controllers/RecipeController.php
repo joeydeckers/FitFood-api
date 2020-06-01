@@ -156,23 +156,18 @@ class RecipeController extends Controller
         if($request['photo_path'] == ""){
             $recipe->update($request->all());
         }else{
-            Recipe::update([
-                'name' => $request['name'],
-                'description' => $request['description'],
-                'photo_path' => $path,
-                //'photo_path' => "http://via.placeholder.com/1920",
-                'wheat_allergy' => $request['wheat_allergy'],
-                'milk_allergy' => $request['milk_allergy'],
-                'allergies_list' => $request['allergies_list'],
-                'protein' => $request['protein'],
-                'calories' => $request['calories'],
-                'carbs' => $request['carbs'],
-                'fats' => $request['fats'],
-                'owner_id' => $request['owner_id'],
-                'votes_id' => $request['votes_id'],
-                'comments_id' => $request['comments_id'],
-                'category_time' => $request['category_time'],
-            ]);
+            $recipe->name = $request['name'];
+            $recipe->description = $request['description'];
+            $recipe->photo_path = $path;
+            $recipe->wheat_allergy = $request['wheat_allergy'];
+            $recipe->milk_allergy = $request['milk_allergy'];
+            $recipe->allergies_list = $request['allergies_list'];
+            $recipe->protein = $request['protein'];
+            $recipe->calories = $request['calories'];
+            $recipe->carbs = $request['carbs'];
+            $recipe->category_time = $request['category_time'];
+            $recipe->save();
+
         }
         
         return $recipe;
