@@ -129,17 +129,6 @@ class RecipeController extends Controller
      */
     public function editRecipe(Request $request, $id)
     {
-
-        
-        $user = auth()->guard('api')->user();
-        $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
-
-        if(is_null($recipe)){
-            return response(['message' => "Not found"], 404);
-        }
-
-        $recipe->update($request->all());
-
         if($request['recipe_photo']){
             $image = $request->recipe_photo;  // your base64 encoded
             $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
@@ -156,8 +145,36 @@ class RecipeController extends Controller
             Storage::disk('recipe_img')->put($imageName, base64_decode($image));
             // voor heroku
             $path = "https://fitfood-api.herokuapp.com/uploads/".$imageName;
-            $recipe->photo_path = $path;
         }
+        
+        $user = auth()->guard('api')->user();
+        $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
+
+        if(is_null($recipe)){
+            return response(['message' => "Not found"], 404);
+        }
+        if(!$request['recipe_photo']){
+            $recipe->update($request->all());
+        }else{
+            Recipe::create([
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'photo_path' => $path,
+                //'photo_path' => "http://via.placeholder.com/1920",
+                'wheat_allergy' => $request['wheat_allergy'],
+                'milk_allergy' => $request['milk_allergy'],
+                'allergies_list' => $request['allergies_list'],
+                'protein' => $request['protein'],
+                'calories' => $request['calories'],
+                'carbs' => $request['carbs'],
+                'fats' => $request['fats'],
+                'owner_id' => $request['owner_id'],
+                'votes_id' => $request['votes_id'],
+                'comments_id' => $request['comments_id'],
+                'category_time' => $request['category_time'],
+            ]);
+        }
+        
         return $recipe;
     }
 
