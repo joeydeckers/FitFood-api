@@ -129,6 +129,10 @@ class RecipeController extends Controller
      */
     public function editRecipe(Request $request, $id)
     {
+        if($request['recipe_photo']){
+            return 'found';
+        }
+        
         $user = auth()->guard('api')->user();
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
 
