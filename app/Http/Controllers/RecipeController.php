@@ -130,7 +130,7 @@ class RecipeController extends Controller
     public function editRecipe(Request $request, $id)
     {
         if($request['photo_path']){
-            $image = $request->recipe_photo;  // your base64 encoded
+            $image = $request->photo_path;  // your base64 encoded
             $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
     
             $replace = substr($image, 0, strpos($image, ',')+1); 
