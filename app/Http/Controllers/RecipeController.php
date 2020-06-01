@@ -130,6 +130,7 @@ class RecipeController extends Controller
     public function editRecipe(Request $request, $id)
     {
         $user = auth()->guard('api')->user();
+        return $user;
         $recipe = Recipe::where('owner_id',$user->id)->where('id', $id)->first();
 
         if(is_null($recipe)){
