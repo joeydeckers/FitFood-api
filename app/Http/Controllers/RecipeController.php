@@ -129,7 +129,7 @@ class RecipeController extends Controller
      */
     public function editRecipe(Request $request, $id)
     {
-        if($request['recipe_photo']){
+        if($request['photo_path']){
             $image = $request->recipe_photo;  // your base64 encoded
             $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
     
@@ -153,7 +153,7 @@ class RecipeController extends Controller
         if(is_null($recipe)){
             return response(['message' => "Not found"], 404);
         }
-        if(!isset($request['recipe_photo'])){
+        if($request['recipe_photo'] == ""){
             $recipe->update($request->all());
         }else{
             Recipe::create([
