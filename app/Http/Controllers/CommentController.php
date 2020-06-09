@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use App\User;
 
 class CommentController extends Controller
 {
@@ -13,8 +14,10 @@ class CommentController extends Controller
             'comment_text' => 'required',
         ];
 
+        $user = User::find($request['owner_id']);
+
         return Comment::create([
-            'owner_id' => $request['owner_id'],
+            'owner' => $user->name,
             'recipe_id' => $id,
             'comment_text' => $request['comment_text'],
         ]);
