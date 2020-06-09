@@ -17,7 +17,7 @@ class CommentController extends Controller
         $user = User::find($request['owner_id']);
 
         return Comment::create([
-            'owner' => $user->name,
+            'owner_id' => $user->name,
             'recipe_id' => $id,
             'comment_text' => $request['comment_text'],
         ]);

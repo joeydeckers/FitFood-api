@@ -8,7 +8,7 @@ class Comment extends Model
 {
     protected $fillable = [
         'comment_text',
-        'owner',
+        'owner_id',
         'recipe_id',
     ];
     
